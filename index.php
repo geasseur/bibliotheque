@@ -5,4 +5,8 @@ function chargerClasse($classname)
 }
 
 spl_autoload_register('chargerClasse');
-require 'model/connexion.php'; ?>
+require 'model/connexion.php';
+$bookManager = new BookManager($bdd);
+$displaybooks = $bookManager->listBook();
+require 'vue/vueIndex.php';
+?>

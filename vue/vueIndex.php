@@ -12,14 +12,15 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
       <header>
         <h1>Bibliothèque Staline</h1>
       </header>
-      <main>
-        <section>
+      <main class='d-flex justify-content-around'>
+        <section class='col-sm-12 col-md-7 d-inline-block'>
           <!-- form to added a new book -->
           <form class="" action="" method="post">
 
@@ -27,46 +28,66 @@
           <section>
             <!-- form to sort book's list -->
             <form class="" action="" method="post">
-
+              <label for="">Rechercher par : </label>
+              <select class="" name="trieBook">
+                <option value="category">catégorie</option>
+                <option value="releaseDate">Année de sortie</option>
+                <option value="title">titre</option>
+                <option value="author">auteur</option>
+              </select>
+              <input type="text" name="cleTrie" value="">
+              <input type="submit" name="trie" value="rechercher">
             </form>
             <!-- book's list -->
             <section>
             <?php
-            if (!empty($displayBooks)) {
-              foreach ($displayBooks as $key => $value) { ?>
-                <article class="">
-                  <h3><?php echo $value['titre']; ?></h3>
-                  <p><?php echo $value['auteur']; ?></p>
-                  <p><?php echo $value['dateParution'] ?></p>
+            if (!empty($displaybooks)) {
+              foreach ($displaybooks as $key => $value) { ?>
+                <article class="card">
+                  <h3><?php echo $value['title']; ?></h3>
+                  <p><?php echo $value['author']; ?></p>
+                  <p><?php echo $value['releaseDate']; ?></p>
                 </article>
-            <?php } ?>
+            <?php }
+          } ?>
             </section>
           </section>
         </section>
         <!-- section user -->
-        <aside class="">
+        <aside class=" card col-sm-12 col-md-4 d-inline-block">
+          <h2>liste utilisateur</h2>
           <!-- section to list users -->
           <section>
             <?php
-            if (!empty($displayUsers)) {
+            if (isset($displayUsers) and !empty($displayUsers)) {
               foreach ($displayUsers as $key => $value) { ?>
                 <article class="">
                   <h3><?php echo $value['prenom']; ?></h3>
                   <p><?php echo $value['nom']; ?></p>
                   <p><?php echo $value['adresse']; ?></p>
                 </article>
-            <?php } ?>
+            <?php }
+          } ?>
           </section>
+          <h2>nouvel utilisateur</h2>
           <!-- form for added a new user -->
           <form class="" action="" method="post">
-
+            <label for="">nom</label>
+            <input type="text" name="name" value=""><br>
+            <label for="">prenom</label>
+            <input type="text" name="firstName" value=""><br>
+            <label for="">âge</label>
+            <input type="age" name="" value=""><br>
+            <label for="">adresse</label>
+            <input type="adress" name="" value=""><br>
+            <input type="submit" name="" value="ajouter utilisateur">
           </form>
         </aside>
       </main>
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+      <script src="js/plugins.js"></script>
+      <script src="js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
