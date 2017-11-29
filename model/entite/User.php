@@ -1,10 +1,10 @@
 <?php
 class User{
   private $_idUser;
-  private $_nom;
-  private $_prenom;
+  private $_name;
+  private $_firstName;
   private $_age;
-  private $_adresse;
+  private $_adress;
   private $_dateSubscribe;
 
 
@@ -45,49 +45,81 @@ class User{
     }
 
     /**
-     * Get the value of Nom
+     * Get the value of Date Subscribe
      *
      * @return mixed
      */
-    public function getNom()
+    public function getDateSubscribe()
     {
-        return $this->_nom;
+        return $this->_dateSubscribe;
     }
 
     /**
-     * Set the value of Nom
+     * Set the value of Date Subscribe
      *
-     * @param mixed _nom
+     * @param mixed _dateSubscribe
      *
      * @return self
      */
-    public function setNom($_nom)
+    public function setDateSubscribe($_dateSubscribe)
     {
-        $this->_nom = $_nom;
+        $this->_dateSubscribe = $_dateSubscribe;
+
+        return $this;
+    }
+
+
+
+        //function to borrow a book
+    public function borrowBook(User $user){
+
+    }
+
+
+    /**
+     * Get the value of Name
+     *
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Set the value of Name
+     *
+     * @param mixed _name
+     *
+     * @return self
+     */
+    public function setName($_name)
+    {
+        $this->_name = $_name;
 
         return $this;
     }
 
     /**
-     * Get the value of Prenom
+     * Get the value of First Name
      *
      * @return mixed
      */
-    public function getPrenom()
+    public function getFirstName()
     {
-        return $this->_prenom;
+        return $this->_firstName;
     }
 
     /**
-     * Set the value of Prenom
+     * Set the value of First Name
      *
-     * @param mixed _prenom
+     * @param mixed _firstName
      *
      * @return self
      */
-    public function setPrenom($_prenom)
+    public function setFirstName($_firstName)
     {
-        $this->_prenom = $_prenom;
+        $this->_firstName = $_firstName;
 
         return $this;
     }
@@ -117,58 +149,27 @@ class User{
     }
 
     /**
-     * Get the value of Adresse
+     * Get the value of Adress
      *
      * @return mixed
      */
-    public function getAdresse()
+    public function getAdress()
     {
-        return $this->_adresse;
+        return $this->_adress;
     }
 
     /**
-     * Set the value of Adresse
+     * Set the value of Adress
      *
-     * @param mixed _adresse
+     * @param mixed _adress
      *
      * @return self
      */
-    public function setAdresse($_adresse)
+    public function setAdress($_adress)
     {
-        $this->_adresse = $_adresse;
+        $this->_adress = $_adress;
 
         return $this;
-    }
-
-    /**
-     * Get the value of Date Subscribe
-     *
-     * @return mixed
-     */
-    public function getDateSubscribe()
-    {
-        return $this->_dateSubscribe;
-    }
-
-    /**
-     * Set the value of Date Subscribe
-     *
-     * @param mixed _dateSubscribe
-     *
-     * @return self
-     */
-    public function setDateSubscribe($_dateSubscribe)
-    {
-        $this->_dateSubscribe = $_dateSubscribe;
-
-        return $this;
-    }
-
-
-
-        //function to borrow a book
-    public function borrowBook(User $user){
-
     }
 
 } ?>

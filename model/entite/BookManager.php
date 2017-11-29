@@ -19,7 +19,7 @@ class BookManager{
 
   //function to list the books in the database
   public function listBook(){
-    $displaybooks = $this->_bdd->query('SELECT idBook, title, author, releaseDate, category
+    $displaybooks = $this->_bdd->query('SELECT *
       from book ');
       if ($displaybooks == true) {
         return $displaybooks->fetchAll();

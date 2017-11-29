@@ -53,7 +53,15 @@
             <?php
             if (!empty($displaybooks)) {
               foreach ($displaybooks as $key => $value) { ?>
-                <article class="card d-flex flex-column justify-content-around mt-3">
+                <article class="card d-flex flex-column justify-content-around mt-3 <?php
+                //condition for choose the bg color
+                 if (empty($value['borrower'])): ?>
+                  bg-success
+                <?php endif; ?>
+                <?php if(!empty($value['borrower'])){
+                  ?>bg-danger
+                  <?php
+                } ?>">
                   <h3><?php echo $value['title']; ?></h3>
                   <div class="d-flex justify-content-around">
                     <p><?php echo $value['author']; ?></p>
@@ -64,6 +72,24 @@
                     <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
                     <input class='btn btn-success' type="submit" name="" value="détail">
                   </form>
+                  <?php if (empty($value['borrower'])): ?>
+                    <!-- form for borrow a book to an user -->
+                    <form class="" action="" method="post">
+                      <label for="">prêter le livre à : </label>
+                      <select class="" name="">
+                        <?php foreach ($displayUsers as $key => $value) { ?>
+                          <option value="<?php echo $value['idUser'] ?>"><?php echo $value['firstName']. " ".$value['name']; ?></option>
+                        <?php } ?>
+                      </select><br>
+                      <input type="submit" name="borrow" value="effectuer emprunt">
+                    </form>
+                  <?php endif; ?>
+                  <?php if (!empty($value['borrower'])): ?>
+                    <form class="" action="" method="post">
+                      <input type="text" name="livreRendu" value="<?php echo $value['idBook'] ?>">
+                      <input type="submit" name="" value="livre rendu">
+                    </form>
+                  <?php endif; ?>
                 </article>
             <?php }
             } ?>
@@ -78,26 +104,29 @@
             <?php
             if (isset($displayUsers) and !empty($displayUsers)) {
               foreach ($displayUsers as $key => $value) { ?>
-                <article class="">
-                  <h3><?php echo $value['prenom']; ?></h3>
-                  <p><?php echo $value['nom']; ?></p>
-                  <p><?php echo $value['adresse']; ?></p>
+                <article class="card m-2">
+                  <h3><?php echo $value['firstName']; ?></h3>
+                  <p><?php echo $value['name']; ?></p>
+                  <form class="" action="" method="post">
+                    <input type="text" name="idUser" value="<?php echo $value['idUser']; ?>">
+                    <input type="submit" name="" value="détail Utilisateur">
+                  </form>
                 </article>
             <?php }
           } ?>
           </section>
           <h2>nouvel utilisateur</h2>
           <!-- form for added a new user -->
-          <form class="d-flex flex-column justify-content-around m-2 p-2" action="" method="post">
+          <form class="d-flex flex-column justify-content-around m-2 p-2 card" action="" method="post">
             <label for="">nom :</label>
             <input type="text" name="name" value=""><br>
             <label for="">prenom : </label>
             <input type="text" name="firstName" value=""><br>
             <label for="">âge :</label>
-            <input type="age" name="" value=""><br>
+            <input type="text" name="age" value=""><br>
             <label for="">adresse :</label>
-            <input type="adress" name="" value=""><br>
-            <input class='btn' type="submit" name="" value="ajouter utilisateur">
+            <input type="text" name="adress" value=""><br>
+            <input class='btn' type="submit" name="newUser" value="ajouter utilisateur">
           </form>
         </aside>
       </main>

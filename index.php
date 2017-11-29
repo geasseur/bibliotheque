@@ -9,9 +9,14 @@ require 'model/connexion.php';
 
 //launch bookManager
 $bookManager = new BookManager($bdd);
+$UserManager = new UserManager($bdd);
 
 //display of all books in library
 $displaybooks = $bookManager->listBook();
+
+//display all users
+$displayUsers = $UserManager->listUser();
+
 
 //add a book in the bdd
 if (isset($_POST['addBook'])) {
@@ -26,10 +31,11 @@ if (isset($_POST['addBook'])) {
   header('Location:index.php');
 }
 
+
+//sort books
 if (isset($_POST['trie'])) {
   if (!empty($_POST['trieBook']) and is_string($_POST['trieBook'])) {
     if (!empty($_POST['cleTrie']) and is_string($_POST['cleTrie'])) {
-      header('Location:index.php');
       $critere = $_POST['trieBook'];
       $objRecherche = $_POST['cleTrie'];
       $displaybooks = $bookManager->sortBook($critere, $objRecherche);
@@ -37,5 +43,21 @@ if (isset($_POST['trie'])) {
     }
   }
 }
+
+//add a user
+if (isset($_POST['newUser'])) {
+  $date = new DateTime();
+  $today = $date->format('Y-m-d');
+  $user = new User([
+    'name'=>$_POST['name'],
+    'firstName'=>$_POST['firstName'],
+    'age'=>$_POST['age'],
+    'adress'=>$_POST['adress'],
+    'dateSubscribe'=>$today
+  ]);
+  $UserManager->addUser($user);
+  header('Location:index.php');
+}
+
 require 'vue/vueIndex.php';
 ?>
