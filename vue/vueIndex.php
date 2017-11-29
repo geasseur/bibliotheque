@@ -13,25 +13,35 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
       <header>
-        <h1>Bibliothèque Staline</h1>
+        <h1 class='m-3' style='text-align :center'>Bibliothèque Staline</h1>
       </header>
-      <main class='d-flex justify-content-around'>
-        <section class='col-sm-12 col-md-7 d-inline-block'>
+      <main class='container'>
+        <section class='col-sm-12 col-md-7 d-inline-block card h-100 ml-4 mt-3' id="book">
           <!-- form to added a new book -->
-          <form class="" action="" method="post">
-
+          <form class="d-flex flex-wrap flex-column justify-content-around m-3 p-2 card" action="" method="post">
+            <label for="">titre</label>
+            <input type="text" name="title" value=""><br>
+            <label for="">auteur</label>
+            <input type="text" name="author" value=""><br>
+            <label for="">résumé</label>
+            <input type="text" name="resume" value="">
+            <label for="">categorie</label>
+            <input type="text" name="category" value=""><br>
+            <label for="">date de sortie</label>
+            <input type="date" name="dateSortie" value="">
+            <input class='mt-3 btn btn-primary' type="submit" name="addBook" value="ajouter livre">
           </form>
-          <section>
+          <section class='d-flex flex-column justify-content-around'>
             <!-- form to sort book's list -->
-            <form class="" action="" method="post">
+            <form class="m-3" action="" method="post">
               <label for="">Rechercher par : </label>
               <select class="" name="trieBook">
                 <option value="category">catégorie</option>
-                <option value="releaseDate">Année de sortie</option>
                 <option value="title">titre</option>
                 <option value="author">auteur</option>
               </select>
@@ -39,25 +49,31 @@
               <input type="submit" name="trie" value="rechercher">
             </form>
             <!-- book's list -->
-            <section>
+            <section class='m-3'>
             <?php
             if (!empty($displaybooks)) {
               foreach ($displaybooks as $key => $value) { ?>
-                <article class="card">
+                <article class="card d-flex flex-column justify-content-around mt-3">
                   <h3><?php echo $value['title']; ?></h3>
-                  <p><?php echo $value['author']; ?></p>
-                  <p><?php echo $value['releaseDate']; ?></p>
+                  <div class="d-flex justify-content-around">
+                    <p><?php echo $value['author']; ?></p>
+                    <p><?php echo $value['releaseDate']; ?></p>
+                    <p><?php echo $value['category']; ?></p>
+                  </div>
+                  <form style='text-align:center' class="m-2" action="index.html" method="post">
+                    <input class='btn btn-success' type="submit" name="" value="détail">
+                  </form>
                 </article>
             <?php }
-          } ?>
+            } ?>
             </section>
           </section>
         </section>
         <!-- section user -->
-        <aside class=" card col-sm-12 col-md-4 d-inline-block">
+        <aside class=" card col-sm-12 col-md-4 d-inline-block h-100 ml-4" id='user'>
           <h2>liste utilisateur</h2>
           <!-- section to list users -->
-          <section>
+          <section class='d-flex flex-column justify-content-around'>
             <?php
             if (isset($displayUsers) and !empty($displayUsers)) {
               foreach ($displayUsers as $key => $value) { ?>
@@ -71,16 +87,16 @@
           </section>
           <h2>nouvel utilisateur</h2>
           <!-- form for added a new user -->
-          <form class="" action="" method="post">
-            <label for="">nom</label>
+          <form class="d-flex flex-column justify-content-around m-2 p-2" action="" method="post">
+            <label for="">nom :</label>
             <input type="text" name="name" value=""><br>
-            <label for="">prenom</label>
+            <label for="">prenom : </label>
             <input type="text" name="firstName" value=""><br>
-            <label for="">âge</label>
+            <label for="">âge :</label>
             <input type="age" name="" value=""><br>
-            <label for="">adresse</label>
+            <label for="">adresse :</label>
             <input type="adress" name="" value=""><br>
-            <input type="submit" name="" value="ajouter utilisateur">
+            <input class='btn' type="submit" name="" value="ajouter utilisateur">
           </form>
         </aside>
       </main>
