@@ -29,7 +29,7 @@ if (isset($_POST['addBook'])) {
 if (isset($_POST['trie'])) {
   if (!empty($_POST['trieBook']) and is_string($_POST['trieBook'])) {
     if (!empty($_POST['cleTrie']) and is_string($_POST['cleTrie'])) {
-      //header('Location:index.php');
+      header('Location:index.php');
       $critere = $_POST['trieBook'];
       $objRecherche = $_POST['cleTrie'];
       $displaybooks = $bookManager->sortBook($critere, $objRecherche);

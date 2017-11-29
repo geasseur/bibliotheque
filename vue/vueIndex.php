@@ -16,11 +16,11 @@
         <link rel="stylesheet" href="css/style.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
-    <body>
+    <body class='container'>
       <header>
         <h1 class='m-3' style='text-align :center'>Bibliothèque Staline</h1>
       </header>
-      <main class='container'>
+      <main>
         <section class='col-sm-12 col-md-7 d-inline-block card h-100 ml-4 mt-3' id="book">
           <!-- form to added a new book -->
           <form class="d-flex flex-wrap flex-column justify-content-around m-3 p-2 card" action="" method="post">
@@ -60,7 +60,8 @@
                     <p><?php echo $value['releaseDate']; ?></p>
                     <p><?php echo $value['category']; ?></p>
                   </div>
-                  <form style='text-align:center' class="m-2" action="index.html" method="post">
+                  <form style='text-align:center' class="m-2" action="control/controlDetailLivre.php" method="post">
+                    <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
                     <input class='btn btn-success' type="submit" name="" value="détail">
                   </form>
                 </article>
