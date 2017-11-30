@@ -68,14 +68,6 @@ class User{
         return $this;
     }
 
-
-
-        //function to borrow a book
-    public function borrowBook(User $user){
-
-    }
-
-
     /**
      * Get the value of Name
      *

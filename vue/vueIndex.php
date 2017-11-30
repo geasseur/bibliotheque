@@ -55,11 +55,19 @@
               foreach ($displaybooks as $key => $value) { ?>
                 <article class="card d-flex flex-column justify-content-around mt-3 <?php
                 //condition for choose the bg color
-                 if (empty($value['borrower'])): ?>
+                 if ($value['available']): ?>
                   bg-success
                 <?php endif; ?>
-                <?php if(!empty($value['borrower'])){
-                  ?>bg-danger
+                <?php if(!$value['available']){
+                  ?>bg-warning
+                  <?php
+                }
+                $today = new DateTime();
+                $dateReturn = $value['dateReturn'];
+
+                if($today > $dateReturn and !empty($value['dateReturn'])){
+                  ?>
+                  bg-danger
                   <?php
                 } ?>">
                   <h3><?php echo $value['title']; ?></h3>
@@ -70,24 +78,29 @@
                   </div>
                   <form style='text-align:center' class="m-2" action="control/controlDetailLivre.php" method="post">
                     <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
-                    <input class='btn btn-success' type="submit" name="" value="détail">
+                    <input class='btn' type="submit" name="" value="détail">
                   </form>
-                  <?php if (empty($value['borrower'])): ?>
+
+                  <?php if ($value['available']): ?>
                     <!-- form for borrow a book to an user -->
                     <form class="" action="" method="post">
+                      <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
                       <label for="">prêter le livre à : </label>
-                      <select class="" name="">
-                        <?php foreach ($displayUsers as $key => $value) { ?>
-                          <option value="<?php echo $value['idUser'] ?>"><?php echo $value['firstName']. " ".$value['name']; ?></option>
+                      <select class="" name="borrower">
+                        <?php foreach ($displayUsers as $keyUser => $valueUser) { ?>
+                          <option value="<?php echo $valueUser['idUser'] ?>"><?php echo $valueUser['firstName']. " ".$valueUser['name']; ?></option>
                         <?php } ?>
                       </select><br>
                       <input type="submit" name="borrow" value="effectuer emprunt">
                     </form>
                   <?php endif; ?>
-                  <?php if (!empty($value['borrower'])): ?>
+
+                  <?php if (!$value['available']): var_dump($today);
+                  var_dump($dateReturn);?>
+                    <p>date retour : <?php echo $value['dateReturn']?></p>
                     <form class="" action="" method="post">
                       <input type="text" name="livreRendu" value="<?php echo $value['idBook'] ?>">
-                      <input type="submit" name="" value="livre rendu">
+                      <input type="submit" name="rendreLivre" value="rendre livre">
                     </form>
                   <?php endif; ?>
                 </article>

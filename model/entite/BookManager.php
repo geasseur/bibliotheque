@@ -31,7 +31,7 @@ class BookManager{
 
   //function to display the book in detail page
   public function displayBook($id){
-    $displaybook = $this->_bdd->query('SELECT idBook, title, author, resume, releaseDate, category
+    $displaybook = $this->_bdd->query('SELECT *
       from book where idBook = "'.$id.'" ');
       if ($displaybook == true) {
         return $displaybook->fetch();
@@ -39,6 +39,11 @@ class BookManager{
       else{
         return;
       }
+  }
+
+  public function displayBorrower(Book $book){
+    $displayBorrower = $this->_bdd->query('SELECT idUser, name, firstName from user inner join book on idUser = borrower where idBook = "'.$book->getIdBook().'" ');
+    return $displayBorrower->fetch();
   }
 
   //function to sort the book's list
@@ -53,9 +58,9 @@ class BookManager{
     return $displayBooks->fetchAll();
   }
 
-  //function to update a book
-  public function updateBook(Book $book){
-
+  //function to return a book
+  public function returnBook(Book $book){
+    $returnBook = $this->_bdd->query('UPDATE book set available = 1, borrower = NULL, dateReturn = NULL where idBook = '.$book->getIdBook().'');
   }
 
     /**

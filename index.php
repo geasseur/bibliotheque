@@ -59,5 +59,31 @@ if (isset($_POST['newUser'])) {
   header('Location:index.php');
 }
 
+//borrow a book
+if (isset($_POST['borrow'])) {
+  $date = new DateTime();
+  $date->add(new DateInterval('P10D'));
+  $return = $date->format('Y-m-d');
+  $user = new User([
+    'idUser'=>$_POST['borrower']
+  ]);
+  $book = new Book([
+    'idBook'=>$_POST['idBook'],
+    'available'=>0,
+    'dateReturn'=>$return
+  ]);
+  $UserManager->borrowBook($user, $book);
+  header('Location:index.php');
+}
+
+//return a book
+if (isset($_POST['rendreLivre'])) {
+  $book = new Book([
+    'idBook'=>$_POST['livreRendu']
+  ]);
+  $bookManager->returnBook($book);
+  header('Location:index.php');
+}
+
 require 'vue/vueIndex.php';
 ?>

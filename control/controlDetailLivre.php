@@ -12,5 +12,9 @@ $bookManager = new BookManager($bdd);
 
 //display of all books in library
 $displaybook = $bookManager->displayBook($_POST['idBook']);
+$book = new Book([
+  'idBook'=>$_POST['idBook']
+]);
+$displayBorrower=$bookManager->displayBorrower($book);
 
 require '../vue/vueDetailLivre.php';

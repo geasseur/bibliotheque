@@ -28,6 +28,16 @@ class UserManager{
       }
   }
 
+  //function to borrow a book
+  public function borrowBook(User $user, Book $book){
+    $borrow = $this->_bdd->prepare('UPDATE book SET borrower = :borrower, available = :available, dateReturn = :dateReturn where idBook = :idBook');
+    $borrow->bindValue(':borrower', $user->getIdUser());
+    $borrow->bindValue(':available', $book->getAvailable());
+    $borrow->bindValue(':idBook', $book->getIdBook());
+    $borrow->bindValue(':dateReturn', $book->getDateReturn());
+    $borrow->execute();
+  }
+
   //function to update user
   public function updateUser(User $user){
 

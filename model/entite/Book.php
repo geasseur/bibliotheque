@@ -42,6 +42,7 @@ class Book{
      */
     public function setIdBook($_idBook)
     {
+        $_idBook = (int)$_idBook;
         $this->_idBook = $_idBook;
 
         return $this;

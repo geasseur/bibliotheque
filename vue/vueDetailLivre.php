@@ -31,7 +31,9 @@
                 <p>date de sortie : <?php echo $displaybook['releaseDate']; ?></p>
                 <p>catégorie : <?php echo $displaybook['category']; ?></p>
                 <p>résumé : <?php echo $displaybook['resume']; ?></p>
-                <p></p>
+                <?php if (!$displaybook['available']): ?>
+                  <p>emprunté par : <?php echo  $displayBorrower['firstName']." ".$displayBorrower['name']; ?> et doit être retourner avant le : <?php echo $displaybook['dateReturn']; ?></p>
+                <?php endif; ?>
               </div>
             </article>
         <?php } ?>
