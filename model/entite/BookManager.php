@@ -29,12 +29,25 @@ class BookManager{
       }
   }
 
+
+
+
   //function to display the book in detail page
-  public function displayBook($id){
+  public function displayBook(Book $book){
     $displaybook = $this->_bdd->query('SELECT *
-      from book where idBook = "'.$id.'" ');
+      from book where idBook = "'.$book->getIdBook().'" ');
       if ($displaybook == true) {
-        return $displaybook->fetch();
+        $displaybook= $displaybook->fetch();
+        return new Book([
+          'idBook'=>$displaybook['idBook'],
+          'title'=>$displaybook['title'],
+          'author'=>$displaybook['author'],
+          'resume'=>$displaybook['resume'],
+          'releaseDate'=>$displaybook['releaseDate'],
+          'category'=>$displaybook['category'],
+          'available'=>$displaybook['available'],
+          'borrower'=>$displaybook['borrower'],
+          'dateReturn'=>$displaybook['dateReturn']]);
       }
       else{
         return;
@@ -43,18 +56,18 @@ class BookManager{
 
   public function displayBorrower(Book $book){
     $displayBorrower = $this->_bdd->query('SELECT idUser, name, firstName from user inner join book on idUser = borrower where idBook = "'.$book->getIdBook().'" ');
-    return $displayBorrower->fetch();
+    $displayBorrower = $displayBorrower->fetch();
+    return new User([
+      'firstName'=>$displayBorrower['firstName'],
+      'name'=>$displayBorrower['name']
+    ]);
   }
 
   //function to sort the book's list
   public function sortBook($critere, $objRecherche){
-    var_dump($objRecherche);
-    // $displayBooks = $this->_bdd->query('SELECT title, author, category FROM book WHERE "'.$critere.'" = "'.$objRecherche.'" ');
-    $displayBooks = $this->_bdd->prepare('SELECT title, author, category, releaseDate FROM book WHERE :critere = :objRecherche ');
-    $displayBooks->bindValue(':critere', $critere, PDO::PARAM_STR);
+    $displayBooks = $this->_bdd->prepare('SELECT * FROM book WHERE '.$critere.' = :objRecherche ');
     $displayBooks->bindValue(':objRecherche', $objRecherche, PDO::PARAM_STR);
     $displayBooks->execute();
-    var_dump($displayBooks->fetch(PDO::FETCH_ASSOC));
     return $displayBooks->fetchAll();
   }
 

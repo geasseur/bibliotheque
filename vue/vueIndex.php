@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
+        <title>Index Staline</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,6 +22,7 @@
       </header>
       <main>
         <section class='col-sm-12 col-md-7 d-inline-block card h-100 ml-4 mt-3' id="book">
+          <h2>nouveau Livre</h2>
           <!-- form to added a new book -->
           <form class="d-flex flex-wrap flex-column justify-content-around m-3 p-2 card" action="" method="post">
             <label for="">titre</label>
@@ -31,7 +32,13 @@
             <label for="">résumé</label>
             <input type="text" name="resume" value="">
             <label for="">categorie</label>
-            <input type="text" name="category" value=""><br>
+            <select class="" name="category">
+              <option value="science fiction">science fiction</option>
+              <option value="fantasy">fantasy</option>
+              <option value="policier">policier</option>
+              <option value="romance">romance</option>
+              <option value="aventure">aventure</option>
+            </select>
             <label for="">date de sortie</label>
             <input type="date" name="dateSortie" value="">
             <input class='mt-3 btn btn-primary' type="submit" name="addBook" value="ajouter livre">
@@ -58,77 +65,85 @@
                  if ($value['available']): ?>
                   bg-success
                 <?php endif; ?>
-                <?php if(!$value['available']){
-                  ?>bg-warning
-                  <?php
-                }
+                <?php
                 $today = new DateTime();
                 $dateReturn = $value['dateReturn'];
-
-                if($today > $dateReturn and !empty($value['dateReturn'])){
+                if($today > $dateReturn and !$value['available']){
                   ?>
                   bg-danger
+                  <?php
+                }
+                if(!$value['available']){
+                  ?>bg-warning
                   <?php
                 } ?>">
                   <h3><?php echo $value['title']; ?></h3>
                   <div class="d-flex justify-content-around">
                     <p><?php echo $value['author']; ?></p>
-                    <p><?php echo $value['releaseDate']; ?></p>
+                    <p><?php $date = new DateTime($value['releaseDate']);
+                    $date = $date->format('d-m-Y');
+                    echo $date; ?></p>
                     <p><?php echo $value['category']; ?></p>
                   </div>
                   <form style='text-align:center' class="m-2" action="control/controlDetailLivre.php" method="post">
-                    <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
+                    <input class='d-none' type="text" name="idBook" value="<?php echo $value['idBook'];?>">
                     <input class='btn' type="submit" name="" value="détail">
                   </form>
 
                   <?php if ($value['available']): ?>
                     <!-- form for borrow a book to an user -->
-                    <form class="" action="" method="post">
-                      <input type="text" name="idBook" value="<?php echo $value['idBook'];?>">
+                    <form style='width:100px;' class="mx-auto pb-2" action="" method="post">
+                      <input class='d-none' type="text" name="idBook" value="<?php echo $value['idBook'];?>">
                       <label for="">prêter le livre à : </label>
                       <select class="" name="borrower">
                         <?php foreach ($displayUsers as $keyUser => $valueUser) { ?>
                           <option value="<?php echo $valueUser['idUser'] ?>"><?php echo $valueUser['firstName']. " ".$valueUser['name']; ?></option>
                         <?php } ?>
                       </select><br>
-                      <input type="submit" name="borrow" value="effectuer emprunt">
+                      <input class='btn' type="submit" name="borrow" value="effectuer emprunt">
                     </form>
                   <?php endif; ?>
 
-                  <?php if (!$value['available']): var_dump($today);
-                  var_dump($dateReturn);?>
-                    <p>date retour : <?php echo $value['dateReturn']?></p>
-                    <form class="" action="" method="post">
-                      <input type="text" name="livreRendu" value="<?php echo $value['idBook'] ?>">
-                      <input type="submit" name="rendreLivre" value="rendre livre">
+                  <?php if (!$value['available']):?>
+                    <p style='width:200px' class='mx-auto'>date retour : <?php echo $value['dateReturn']?></p>
+                    <form style='width:100px;' class="mx-auto pb-2" action="" method="post">
+                      <input class='d-none' type="text" name="livreRendu" value="<?php echo $value['idBook'] ?>">
+                      <input class='btn' type="submit" name="rendreLivre" value="rendre livre">
                     </form>
                   <?php endif; ?>
                 </article>
             <?php }
+            }
+            else {
+              ?> <h2>Désolé, ce que vous recherchez n'est pas dans nos archives.</h2>
+              <?php
             } ?>
             </section>
           </section>
         </section>
+
         <!-- section user -->
         <aside class=" card col-sm-12 col-md-4 d-inline-block h-100 ml-4" id='user'>
           <h2>liste utilisateur</h2>
+
           <!-- section to list users -->
           <section class='d-flex flex-column justify-content-around'>
             <?php
             if (isset($displayUsers) and !empty($displayUsers)) {
               foreach ($displayUsers as $key => $value) { ?>
                 <article class="card m-2">
-                  <h3><?php echo $value['firstName']; ?></h3>
-                  <p><?php echo $value['name']; ?></p>
-                  <form class="" action="" method="post">
-                    <input type="text" name="idUser" value="<?php echo $value['idUser']; ?>">
-                    <input type="submit" name="" value="détail Utilisateur">
+                  <h3><?php echo $value['name']; ?></h3>
+                  <h5><?php echo $value['firstName']; ?></h5>
+                  <form class="d-flex flex-row justify-content-center" action="control/controlUser.php" method="post">
+                    <input class='d-none' type="text" name="idUser" value="<?php echo $value['idUser']; ?>">
+                    <input class='btn mb-2' type="submit" name="" value="détail Utilisateur">
                   </form>
                 </article>
             <?php }
           } ?>
           </section>
           <h2>nouvel utilisateur</h2>
+
           <!-- form for added a new user -->
           <form class="d-flex flex-column justify-content-around m-2 p-2 card" action="" method="post">
             <label for="">nom :</label>

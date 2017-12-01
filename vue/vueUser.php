@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><?php /*echo $displaybook['title']*/ echo $displaybook->getTitle(); ?></title>
+        <title>compte <?php echo $displayUser->getFirstName()." ". $displayUser->getName(); ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,17 +23,25 @@
       <main>
         <section class='m-3'>
         <?php
-        if (!empty($displaybook)) { ?>
+        if (!empty($displayUser)) { ?>
             <article class="card d-flex flex-column justify-content-around mt-3">
-              <h3 style='text-align:center'><?php echo $displaybook->getTitle(); ?></h3>
+              <h3 style='text-align:center'><?php echo $displayUser->getFirstName() ." ". $displayUser->getName() ; ?></h3>
               <div class="d-flex flex-column align-items-center">
-                <p>auteur : <?php echo $displaybook->getAuthor(); ?></p>
-                <p>date de sortie : <?php echo $displaybook->getReleaseDate(); ?></p>
-                <p>catégorie : <?php echo $displaybook->getCategory(); ?></p>
-                <p>résumé : <?php echo $displaybook->getResume(); ?></p>
-                <?php if ($displaybook->getBorrower()): ?>
-                  <p>emprunté par : <?php echo  $displayBorrower->getFirstName()." ".$displayBorrower->getName(); ?> et doit être retourner avant le : <?php echo $displaybook->getDateReturn(); ?></p>
-                <?php endif; ?>
+                <p>adresse : <?php echo $displayUser->getAdress(); ?></p>
+                <p>age : <?php echo $displayUser->getAge(); ?></p>
+                <p>inscrit le  : <?php echo $displayUser->getDateSubscribe(); ?></p>
+
+                <h3>livre emprunté : </h3>
+                <?php if (!empty($displayBooks)):
+                  foreach ($displayBooks as $key => $value) { ?>
+                    <article class="card p-3 m-2">
+                      <p>titre : <?php echo $value['title']; ?></p>
+                      <p>auteur : <?php echo $value['author']; ?></p>
+                      <p>doit être retourné le : <?php echo $value['dateReturn']; ?></p>
+                      <p>catégorie : <?php echo $value['category']; ?></p>
+                    </article>
+                <?php }
+                    endif; ?>
               </div>
             </article>
         <?php } ?>

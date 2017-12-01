@@ -28,6 +28,24 @@ class UserManager{
       }
   }
 
+  public function displayUser(User $user){
+    $displayUser = $this->_bdd->query('SELECT * from User where idUser = "'.$user->getIdUser().'" ');
+    $displayUser = $displayUser->fetch();
+    return new User([
+      'idUser'=>$displayUser['idUser'],
+      'name'=>$displayUser['name'],
+      'firstName'=>$displayUser['firstName'],
+      'age'=>$displayUser['age'],
+      'adress'=>$displayUser['adress'],
+      'dateSubscribe'=>$displayUser['dateSubscribe']
+    ]);
+  }
+
+  public function displayBooksBorrow(User $user){
+    $displayBooks = $this->_bdd->query('SELECT title, author, category, dateReturn, borrower from book where borrower = "'.$user->getIdUser().'"');
+    return $displayBooks->fetchAll();
+  }
+
   //function to borrow a book
   public function borrowBook(User $user, Book $book){
     $borrow = $this->_bdd->prepare('UPDATE book SET borrower = :borrower, available = :available, dateReturn = :dateReturn where idBook = :idBook');

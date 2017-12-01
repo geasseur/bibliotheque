@@ -10,11 +10,11 @@ require '../model/connexion.php';
 //launch bookManager
 $bookManager = new BookManager($bdd);
 
-//display of all books in library
-$displaybook = $bookManager->displayBook($_POST['idBook']);
 $book = new Book([
   'idBook'=>$_POST['idBook']
 ]);
+//display of all books in library
+$displaybook = $bookManager->displayBook($book);
 $displayBorrower=$bookManager->displayBorrower($book);
 
 require '../vue/vueDetailLivre.php';

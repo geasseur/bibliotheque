@@ -20,11 +20,13 @@ $displayUsers = $UserManager->listUser();
 
 //add a book in the bdd
 if (isset($_POST['addBook'])) {
+  $date = new DateTime($_POST['dateSortie']);
+  $today = $date->format('Y-m-d');
   $book = new Book([
     'title'=>$_POST['title'],
     'author'=>$_POST['author'],
     'resume'=>$_POST['resume'],
-    'releaseDate'=>$_POST['dateSortie'],
+    'releaseDate'=>$today,
     'category'=>$_POST['category']
   ]);
   $bookManager->addBook($book);
@@ -39,7 +41,7 @@ if (isset($_POST['trie'])) {
       $critere = $_POST['trieBook'];
       $objRecherche = $_POST['cleTrie'];
       $displaybooks = $bookManager->sortBook($critere, $objRecherche);
-      var_dump($displaybooks);
+      //var_dump($displaybooks);
     }
   }
 }
@@ -48,6 +50,7 @@ if (isset($_POST['trie'])) {
 if (isset($_POST['newUser'])) {
   $date = new DateTime();
   $today = $date->format('Y-m-d');
+  //$today = $date->format('Y-m-d');
   $user = new User([
     'name'=>$_POST['name'],
     'firstName'=>$_POST['firstName'],
