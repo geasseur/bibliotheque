@@ -29,19 +29,28 @@
               <div class="d-flex flex-column align-items-center">
                 <p>adresse : <?php echo $displayUser->getAdress(); ?></p>
                 <p>age : <?php echo $displayUser->getAge(); ?></p>
-                <p>inscrit le  : <?php echo $displayUser->getDateSubscribe(); ?></p>
+                <p>inscrit le  : <?php
+                $date = new DateTime($displayUser->getDateSubscribe());
+                $dateInscription = $date->format('d-m-Y');
+                echo $dateInscription; ?></p>
 
                 <h3>livre emprunté : </h3>
+                <section class='d-flex flex-row justify-content-around flex-wrap'>
                 <?php if (!empty($displayBooks)):
                   foreach ($displayBooks as $key => $value) { ?>
                     <article class="card p-3 m-2">
                       <p>titre : <?php echo $value['title']; ?></p>
                       <p>auteur : <?php echo $value['author']; ?></p>
-                      <p>doit être retourné le : <?php echo $value['dateReturn']; ?></p>
+                      <p>doit être retourné le : <?php
+                      $date = new DateTime($value['dateReturn']);
+                      $dateRetour = $date->format('d-m-Y');
+                      echo $dateRetour;
+                       ?></p>
                       <p>catégorie : <?php echo $value['category']; ?></p>
                     </article>
                 <?php }
                     endif; ?>
+                 </section>
               </div>
             </article>
         <?php } ?>

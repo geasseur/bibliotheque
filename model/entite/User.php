@@ -39,9 +39,12 @@ class User{
      */
     public function setIdUser($_idUser)
     {
+      $_idUser = (int)$_idUser;
+      if ($_idUser > 0) {
         $this->_idUser = $_idUser;
 
         return $this;
+      }
     }
 
     /**

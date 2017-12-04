@@ -32,7 +32,9 @@
                 <p>catégorie : <?php echo $displaybook->getCategory(); ?></p>
                 <p>résumé : <?php echo $displaybook->getResume(); ?></p>
                 <?php if ($displaybook->getBorrower()): ?>
-                  <p>emprunté par : <?php echo  $displayBorrower->getFirstName()." ".$displayBorrower->getName(); ?> et doit être retourner avant le : <?php echo $displaybook->getDateReturn(); ?></p>
+                  <p>emprunté par : <?php echo  $displayBorrower->getFirstName()." ".$displayBorrower->getName(); ?> et doit être retourner avant le : <?php $date = new DateTime($displaybook->getDateReturn());
+                  $dateReturn = $date->format('d-m-Y');
+                  echo $dateReturn ?></p>
                 <?php endif; ?>
               </div>
             </article>

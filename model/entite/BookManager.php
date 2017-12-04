@@ -20,7 +20,7 @@ class BookManager{
   //function to list the books in the database
   public function listBook(){
     $displaybooks = $this->_bdd->query('SELECT *
-      from book ');
+      from book ORDER BY title ASC');
       if ($displaybooks == true) {
         return $displaybooks->fetchAll();
       }
@@ -28,9 +28,6 @@ class BookManager{
         return;
       }
   }
-
-
-
 
   //function to display the book in detail page
   public function displayBook(Book $book){

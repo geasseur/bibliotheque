@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Index Staline</title>
+        <title>Bibliothèque Staline</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,15 +16,16 @@
         <link rel="stylesheet" href="css/style.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
-    <body class='container'>
+    <body>
       <header>
         <h1 class='m-3' style='text-align :center'>Bibliothèque Staline</h1>
       </header>
-      <main>
-        <section class='col-sm-12 col-md-7 d-inline-block card h-100 ml-4 mt-3' id="book">
+      <main class='container'>
+        <section id='livre' class='col-sm-12 col-md-7 d-inline-block card h-100' id="book">
           <h2>nouveau Livre</h2>
+
           <!-- form to added a new book -->
-          <form class="d-flex flex-wrap flex-column justify-content-around m-3 p-2 card" action="" method="post">
+          <form class="d-flex flex-wrap flex-column justify-content-around m-3 p-2 " action="" method="post">
             <label for="">titre</label>
             <input type="text" name="title" value=""><br>
             <label for="">auteur</label>
@@ -44,17 +45,19 @@
             <input class='mt-3 btn btn-primary' type="submit" name="addBook" value="ajouter livre">
           </form>
           <section class='d-flex flex-column justify-content-around'>
+
             <!-- form to sort book's list -->
-            <form class="m-3" action="" method="post">
+            <form class="m-3 d-flex flex-column" action="" method="post">
               <label for="">Rechercher par : </label>
-              <select class="" name="trieBook">
+              <select class="m-2" name="trieBook">
                 <option value="category">catégorie</option>
                 <option value="title">titre</option>
                 <option value="author">auteur</option>
               </select>
-              <input type="text" name="cleTrie" value="">
-              <input type="submit" name="trie" value="rechercher">
+              <input class='m-2' type="text" name="cleTrie" value="">
+              <input class='btn btn-primary' type="submit" name="trie" value="rechercher">
             </form>
+
             <!-- book's list -->
             <section class='m-3'>
             <?php
@@ -123,7 +126,7 @@
         </section>
 
         <!-- section user -->
-        <aside class=" card col-sm-12 col-md-4 d-inline-block h-100 ml-4" id='user'>
+        <aside class=" card col-sm-12 col-md-4 d-inline-block h-100  " id='user'>
           <h2>liste utilisateur</h2>
 
           <!-- section to list users -->
@@ -131,7 +134,7 @@
             <?php
             if (isset($displayUsers) and !empty($displayUsers)) {
               foreach ($displayUsers as $key => $value) { ?>
-                <article class="card m-2">
+                <article class=" m-2">
                   <h3><?php echo $value['name']; ?></h3>
                   <h5><?php echo $value['firstName']; ?></h5>
                   <form class="d-flex flex-row justify-content-center" action="control/controlUser.php" method="post">
@@ -145,7 +148,7 @@
           <h2>nouvel utilisateur</h2>
 
           <!-- form for added a new user -->
-          <form class="d-flex flex-column justify-content-around m-2 p-2 card" action="" method="post">
+          <form class="d-flex flex-column justify-content-around m-2 p-2 " action="" method="post">
             <label for="">nom :</label>
             <input type="text" name="name" value=""><br>
             <label for="">prenom : </label>
