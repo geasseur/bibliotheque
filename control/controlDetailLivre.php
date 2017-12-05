@@ -15,6 +15,8 @@ $book = new Book([
 ]);
 //display of all books in library
 $displaybook = $bookManager->displayBook($book);
+
+//display who is the borrower
 $displayBorrower=$bookManager->displayBorrower($book);
 
 require '../vue/vueDetailLivre.php';
